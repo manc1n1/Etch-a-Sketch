@@ -22,11 +22,11 @@ export default function EtchASketch() {
 
 	return (
 		<div className={styles.container}>
+			<Grid gridSize={gridSize} />
 			<div
 				className={styles.space}
 				style={{ backgroundColor: bgColor }}
 			></div>
-			<Grid gridSize={gridSize} />
 		</div>
 	);
 }

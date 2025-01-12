@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
 import GridSizeButton from '@/components/GridSizeButton';
-import styles from './Header.module.css';
+import styles from './NavBar.module.css';
 import useScrollDirection from '@/hooks';
 import { Typography } from '@mui/material';
 import getRandomColor from '@/utils';
 
-type HeaderProps = {
+type NavBarProps = {
 	onSetGridSize: (size: number) => void;
 };
 
-export default function Header({ onSetGridSize }: HeaderProps) {
+export default function NavBar({ onSetGridSize }: NavBarProps) {
 	const [color, setColor] = useState('black');
 	const { scrollDirection, isAtTop } = useScrollDirection();
 
@@ -21,20 +21,20 @@ export default function Header({ onSetGridSize }: HeaderProps) {
 		return () => clearInterval(interval);
 	}, []);
 
-	const headerClasses = `
-        ${styles.header} 
+	const navClasses = `
+        ${styles.nav} 
         ${scrollDirection === 'down' && !isAtTop ? styles.hidden : ''}
         ${isAtTop ? styles.atTop : ''}
     `.trim();
 
 	return (
-		<header className={headerClasses}>
+		<nav className={navClasses}>
 			<div className={styles.container}>
 				<Typography variant="h4" component="h1" color={color}>
 					Etch-a-Sketch
 				</Typography>
 				<GridSizeButton onSetGridSize={onSetGridSize} />
 			</div>
-		</header>
+		</nav>
 	);
 }
