@@ -28,16 +28,32 @@ export default function Grid({ gridSize }: GridProps) {
 		resetGrid();
 	}, [gridSize]);
 
-	const handleMouseOver = (e: React.MouseEvent<HTMLDivElement>) => {
-		let currentOpacity = parseFloat(e.currentTarget.dataset.opacity || '0');
+	const handleMouseOver = (
+		e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>,
+	) => {
+		let target: HTMLDivElement;
 
-		if (currentOpacity < 1) {
-			currentOpacity = Math.min(currentOpacity + 0.1, 1);
-			e.currentTarget.dataset.opacity = currentOpacity.toString();
+		if ('touches' in e) {
+			const touch = e.touches[0];
+			target = document.elementFromPoint(
+				touch.clientX,
+				touch.clientY,
+			) as HTMLDivElement;
+		} else {
+			target = e.currentTarget;
+		}
 
-			const randomColor = getRandomColor();
-			e.currentTarget.style.backgroundColor = `${randomColor}`;
-			e.currentTarget.style.opacity = currentOpacity.toString();
+		if (target && target.classList.contains(styles.gridItem)) {
+			let currentOpacity = parseFloat(target.dataset.opacity || '0');
+
+			if (currentOpacity < 1) {
+				currentOpacity = Math.min(currentOpacity + 0.1, 1);
+				target.dataset.opacity = currentOpacity.toString();
+
+				const randomColor = getRandomColor();
+				target.style.backgroundColor = randomColor;
+				target.style.opacity = currentOpacity.toString();
+			}
 		}
 	};
 
@@ -49,6 +65,7 @@ export default function Grid({ gridSize }: GridProps) {
 				style={{
 					gridTemplateColumns: `repeat(${gridSize}, 1fr)`,
 					gridTemplateRows: `repeat(${gridSize}, 1fr)`,
+					touchAction: 'none',
 				}}
 			>
 				{Array.from({ length: gridSize * gridSize }).map((_, index) => (
@@ -57,6 +74,8 @@ export default function Grid({ gridSize }: GridProps) {
 						className={styles.gridItem}
 						data-opacity="0"
 						onMouseOver={handleMouseOver}
+						onTouchStart={handleMouseOver}
+						onTouchMove={handleMouseOver}
 					/>
 				))}
 			</div>

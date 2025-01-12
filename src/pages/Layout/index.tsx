@@ -16,9 +16,7 @@ export default function Layout() {
 		<>
 			<Header onSetGridSize={handleSetGridSize} />
 			<main className={styles.main}>
-				<section className={styles.section}>
-					<Outlet context={{ gridSize }} />
-				</section>
+				<Outlet context={{ gridSize }} />
 			</main>
 			<Footer />
 		</>
