@@ -7,7 +7,7 @@ const AppRoutes: React.FC = () => {
 	return (
 		<Router>
 			<Routes>
-				<Route path="/" element={<Layout />}>
+				<Route path="/Etch-a-Sketch/" element={<Layout />}>
 					<Route index element={<EtchASketch />} />
 					<Route path="*" element={<PageNotFound />} />
 				</Route>
