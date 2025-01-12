@@ -1,0 +1,40 @@
+.header {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 1000;
+
+	padding: 15px;
+
+	background: rgba(0, 0, 0, 0.2);
+	backdrop-filter: blur(8px);
+	-webkit-backdrop-filter: blur(8px);
+
+	transform: translateY(0);
+	transition: all 0.3s ease-in-out;
+}
+
+.hidden {
+	transform: translateY(-100%);
+	box-shadow: none;
+}
+
+.atTop {
+	background: rgba(255, 255, 255, 0.2);
+	box-shadow: none;
+}
+
+.container {
+	width: 100%;
+	max-width: 1200px;
+	margin: 0 auto;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
